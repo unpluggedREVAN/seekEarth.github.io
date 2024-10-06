@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>seekEarth: Imagine our Earth connected</title>
+    <title>SeekEarth: Imagine our Earth connected</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
     <style>
         body, html { height: 100%; margin: 0; font-family: 'Arial', sans-serif; }
@@ -119,7 +119,7 @@
 
     <!-- Pantalla de bienvenida -->
     <div class="overlay welcome-card">
-        <h2>Welcome to seekEarth</h2>
+        <h2>Welcome to SeekEarth</h2>
         <p>Choose a campaign and select a difficulty level. You will be given a set number of points, which you will need to accumulate by answering correctly in order to save the planet!</p>
         <button class="button" onclick="showCampaigns()">Start Game</button>
     </div>
@@ -127,8 +127,8 @@
     <!-- Selección de campaña -->
     <div class="overlay campaigns hidden">
         <h2>Choose a campaign:</h2>
-        <div class="campaign-option" onclick="goToCampaign('Brasil')">
-            <h3>Brasil - Preserve the Amazon!</h3>
+        <div class="campaign-option" onclick="goToCampaign('Brazil')">
+            <h3>Brazil - Preserve the Amazon!</h3>
             <p>Discover the negative impact caused by corporate activities on the forest biodiversity of the Amazon.</p>
         </div>
         <div class="campaign-option" onclick="goToCampaign('China')">
@@ -176,7 +176,7 @@
         // Maneja la selección de campaña
         function goToCampaign(country) {
             let coords = {
-                'Brasil': [-14.235004, -51.92528],
+                'Brazil': [-14.235004, -51.92528],
                 'China': [35.861660, 104.195397]
             };
 
@@ -186,7 +186,7 @@
             setTimeout(function () {
                 document.querySelector('.campaign-info').innerHTML = `
                     <h2>Campaign: ${country}</h2>
-                    <p>${country === 'Brasil' ? 'Explore how decisions impact the Amazon rainforest.' : 'Discover the impact of CO2 in Pekin'}</p>
+                    <p>${country === 'Brazil' ? 'Explore how decisions impact the Amazon rainforest.' : 'Discover the impact of CO2 in Pekin'}</p>
                     <div class="dropdown">
                         <label for="difficulty">Choose difficulty:</label>
                         <select id="difficulty" onchange="setDifficulty(this.value)">
@@ -209,9 +209,9 @@
 
         // Iniciar la campaña
         function startCampaign(country) {
-            if (country === 'Brasil' && selectedDifficulty === 'Medium') {
+            if (country === 'Brazil' && selectedDifficulty === 'Medium') {
                 window.location.href = 'caso1.html';  // Brasil - Medio
-            } else if (country === 'Brasil' && selectedDifficulty === 'Difficult') {
+            } else if (country === 'Brazil' && selectedDifficulty === 'Difficult') {
                 window.location.href = 'caso2.html';  // Brasil - Difícil
             } else if (country === 'China' && selectedDifficulty === 'Medium') {
                 window.location.href = 'caso3.html';  // China - Medio

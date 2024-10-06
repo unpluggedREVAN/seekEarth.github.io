@@ -86,61 +86,63 @@
 
 <!-- Cuadro de bienvenida -->
 <div class="overlay welcome-card">
-    <h2>Bienvenido al Juego</h2>
-    <p>Haz clic abajo para comenzar tu aventura.</p>
-    <button class="button" onclick="startGame()">Iniciar Juego</button>
+    <h2>Welcome!</h2>
+    <p>Click the button below to start</p>
+    <button class="button" onclick="startGame()">Start</button>
 </div>
 
 <!-- Cuadro de decisiones -->
 <div class="overlay campaign-info hidden">
-    <h2 id="decision-title">Primera Decisión</h2>
-    <p id="decision-text">¿Qué acción tomarás en relación con el consumo de energía?</p>
-    <button class="button" onclick="decision1()">Opción 1</button>
-    <button class="button" onclick="decision2()">Opción 2</button>
+    <h2 id="decision-title">First Decision</h2>
+    <p id="decision-text">You are the CEO of a transportation company, and you are about to replace your fleet. You need to decide whether to purchase electric or diesel buses. What do you choose?</p>
+
+    <button id="decision-btn-1" class="button" onclick="decision1()">You buy electric buses because they are the future.</button>
+    <button id="decision-btn-2" class="button" onclick="decision2()">You buy diesel buses because they are cheaper.</button>
+
 </div>
 
 <!-- Cuadro de resultado tras la decisión -->
 <div class="overlay result-info hidden">
-    <h2>Resultado</h2>
+    <h2>Results</h2>
     <p id="result-text">Aquí aparecerá el resultado de tu decisión.</p>
-    <button class="button" onclick="nextDecision()">Aceptar</button>
+    <button class="button" onclick="nextDecision()">Next</button>
 </div>
 
 <!-- Cuadro de "Información" -->
 <div class="panel-box info-box">
-    <h3>Información:</h3>
-    <p id="info">Aquí aparecerá información relevante que te ayudará a tomar una mejor decisión.</p> <!-- Cambiado el contexto para pistas -->
+    <h3>Information:</h3>
+    <p id="info">Here you will have updated info to choose wisely your next move.</p> <!-- Cambiado el contexto para pistas -->
 </div>
 
 <!-- Cuadro de "Puntos ambientales" -->
 <div class="panel-box environment-points-box">
-    <h3>Puntos ambientales:</h3>
+    <h3>Environmental points:</h3>
     <p id="points">300</p> <!-- Comenzar con puntos más altos -->
 </div>
 
 <!-- Cuadro de "Límite de puntos" -->
 <div class="panel-box environment-goal-box">
-    <h3>Límite:</h3>
+    <h3>Limit:</h3>
     <p>200</p> <!-- Límite que no se debe bajar -->
 </div>
 
 <!-- Cuadro de "Año" -->
 <div class="panel-box year-box">
-    <h3>Año:</h3>
+    <h3>Year:</h3>
     <p id="year">2024</p> <!-- Aumentar de 3 en 3 años por decisión -->
 </div>
 
 <!-- Cuadro de "Dificultad" -->
 <div class="panel-box difficulty-box">
-    <h3>Dificultad:</h3>
+    <h3>Difficulty:<h3>
     <p>Medium</p>
 </div>
 
 <!-- Cuadro final de resumen -->
 <div class="overlay final-verdict hidden">
-    <h2>Resumen Final</h2>
+    <h2>Final Veredict</h2>
     <p id="final-summary"></p>
-    <button class="button" onclick="restartGame()">Volver al Inicio</button>
+    <button class="button" onclick="restartGame()">Go back to menu</button>
 </div>
 
 <!-- Importar Leaflet JS -->
@@ -154,7 +156,7 @@
     var decisionCoords = [
         [39.9042, 116.4074],  // Pekin china
         [-34.6037, -58.3816], // Buenos Aires Argentina
-        [38.89511, -77.03637]        // 
+        [38.89511, -77.03637]        // Estados Unidos
     ];
 
     // Definir los límites del mapa para el mundo completo
@@ -205,21 +207,21 @@
     function decision1() {
         if (currentStep === 1) {
             environmentalPoints -= 30; // Ajustar los puntos
-            showResult("Has decidido implementar un sistema de energía renovable en pekin, pero el costo inicial es elevado.");
-            generateMapImpact([39.9042, 116.4074], 'green', "Energía renovable implementada. Se estima una reducción de emisiones de CO2 del 20%.");
+            showResult("You have decided to go for a more environmentally friendly option by choosing electric buses");
+            generateMapImpact([39.9042, 116.4074], 'green', "If the company decides to invest in a fleet of electric buses, it will reduce its CO2 emissions to zero on electrified routes, eliminating 250,000 tons of CO2 in 5 years. In addition, air quality will improve in urban areas, reducing NOx levels by 60%, which will improve public health and reduce medical costs associated with respiratory problems. ");
             nextCoords = decisionCoords[1]; // Buenos Aires
-            updateInfo("Considera el impacto a largo plazo de implementar energía renovable, aunque el costo inicial sea alto."); // Información de contexto
+            updateInfo("Consider the long-term impact of implementing renewable energy, even though the initial cost is high."); // Información de contexto
         } else if (currentStep === 2) {
             environmentalPoints -= 40;
-            showResult("Buenos aireeesss, implementas un plan de reciclaje avanzado, pero enfrenta oposición.");
-            generateMapImpact([-34.6037, -58.3816], 'yellow', "El reciclaje en Londres creció un 15%, pero la resistencia ha aumentado los costos en un 8%.");
+            showResult("As a citizen of Buenos Aires, you consume large amounts of meat, but you're considering becoming vegetarian. What impact could that have?");
+            generateMapImpact([-34.6037, -58.3816], 'yellow', "By switching to a plant-based diet or reducing meat consumption, the player will avoid the emission of 2 tons of CH4 in 5 years and reduce his water consumption by 90% compared to a carnivorous diet. This change also contributes to environmental sustainability and improves personal health.");
             nextCoords = decisionCoords[2]; // Estados Unidos 
-            updateInfo("El reciclaje ayuda a reducir desechos, pero no siempre es bien recibido por la comunidad debido a sus costos.");
+            updateInfo("A growing number of people around the world are choosing to adopt a vegetarian lifestyle. Many are motivated by concerns for the environment, animal welfare, and personal health.");
         } else if (currentStep === 3) {
             environmentalPoints += 20;
-            showResult("Has decidido conservar áreas forestales en el Amazonas, protegiendo la biodiversidad.");
-            generateMapImpact([38.89511, -77.03637], 'green', "Conservación en el Amazonas: 300,000 hectáreas de bosque protegidas.");
-            updateInfo("La conservación del Amazonas no solo protege la biodiversidad, sino que ayuda a combatir el cambio climático.");
+            showResult("As a student, you have decided to create risk management plans in case of a wildfire.");
+            generateMapImpact([38.89511, -77.03637], 'green', "Extinguishing costs will reach $5 billion, while damage to property and infrastructure will be $10 billion, displacing 50,000 people. In addition, the fires will emit 200 million tonnes of CO2, worsening climate change, and 15% of biodiversity will be lost in the affected areas. ");
+            updateInfo("Wildfires continue to be a growing threat in the United States, with record-breaking blazes affecting large areas across the country. In response, government officials are developing more comprehensive risk management.");
         }
         updateEnvironmentalPoints();
         updateYear();  // Avanzar 3 años tras cada decisión
@@ -229,21 +231,21 @@
     function decision2() {
         if (currentStep === 1) {
             environmentalPoints -= 50;
-            showResult("Decidiste seguir usando combustibles fósiles en Pekin. Las emisiones aumentan.");
-            generateMapImpact([39.9042, 116.4074], 'red', "Las emisiones de CO2 han aumentado un 12% en São Paulo.");
+            showResult("You decided to continue using diesel buses in Beijing. Emissions are increasing, contributing to worsening air quality in the city.");
+            generateMapImpact([39.9042, 116.4074], 'red', "If the company decides to continue using its diesel bus fleet, it will emit 50,000 tons of CO2 per year. In 5 years, this will add up to a total of 250,000 tons of CO2, contributing significantly to global warming and poor air quality. Nitrogen oxide (NOx) pollution will increase, contributing to 30% of respiratory problems in urban areas most exposed to bus routes.");
             nextCoords = decisionCoords[1]; // Buenos Aires
-            updateInfo("Aunque los combustibles fósiles son una opción económica, aumentan las emisiones y dañan el ambiente a largo plazo.");
+            updateInfo("Air pollution in Beijing continues to be a major concern, with diesel buses contributing significantly to the city’s emissions. Despite efforts to curb pollution, the reliance on diesel-powered public transportation exacerbates poor air quality,");
         } else if (currentStep === 2) {
             environmentalPoints -= 60;
-            showResult("Decides no implementar reciclaje en Buenos aires. Esto aumenta los desechos plásticos.");
-            generateMapImpact([-34.6037, -58.3816], 'red', "Buenos airessssss produce un 25% más de desechos plásticos. El impacto en la salud pública ha aumentado un 5%.");
+            showResult("You decide that you can't stop consuming meat");
+            generateMapImpact([-34.6037, -58.3816], 'red', "If the player maintains a meat-rich diet, they will generate 3.3 tons of methane (CH4) over 5 years. Additionally, they will contribute to deforestation and excessive water use, worsening water resource scarcity, as meat production uses 10 times more water than a plant-based diet.");
             nextCoords = decisionCoords[2]; // Estados Unidos
-            updateInfo("No reciclar tiene efectos perjudiciales en la salud pública y genera más contaminación a largo plazo.");
+            updateInfo("Recent studies highlight the significant environmental impact of high meat consumption, particularly its contribution to global pollution. Livestock farming is responsible for a large portion of methane emissions, a potent greenhouse gas. ");
         } else if (currentStep === 3) {
             environmentalPoints -= 70;
-            showResult("Quemas en Estados Unidos. El ecosistema sufre.");
-            generateMapImpact([38.89511, -77.03637], 'red', "Más de 500,000 hectáreas han sido deforestadas, afectando a 200 especies en peligro.");
-            updateInfo("La Quema en Estados Unidos..... afecta no solo la biodiversidad, sino también el clima global.");
+            showResult("As a student, you think the environment is not important and believe that wildfires don't affect it.");
+            generateMapImpact([38.89511, -77.03637], 'red', "If investment is made in prevention strategies, such as controlled burns, reduction of flammable material and reforestation, the area affected by fires could be reduced by 30% in 5 years. Although the initial cost will be $2.5 billion, an estimated $8 billion in damage and displacement will be avoided, protecting 100,000 people. ");
+            updateInfo("n 2023 alone, millions of acres were burned, and entire ecosystems were destroyed. The increasing frequency and intensity of these fires are linked to climate change.");
         }
         updateEnvironmentalPoints();
         updateYear();  // Avanzar 3 años tras cada decisión
@@ -298,13 +300,18 @@
     // Actualizar el texto de las decisiones
     function updateDecisionText() {
         if (currentStep === 2) {
-            document.getElementById('decision-title').textContent = "Segunda Decisión";
-            document.getElementById('decision-text').textContent = "Eres el alcalde de Londres. ¿Implementarás un plan de reciclaje a pesar del costo económico?";
+            document.getElementById('decision-title').textContent = "Second Decision";
+            document.getElementById('decision-text').textContent = "As a citizen of Buenos Aires, you consume large amounts of meat, but you're considering becoming vegetarian. What impact could that have?";
+            document.getElementById('decision-btn-1').textContent = "Switch to a plant-based diet";
+            document.getElementById('decision-btn-2').textContent = "Continue consuming meat";
         } else if (currentStep === 3) {
-            document.getElementById('decision-title').textContent = "Tercera Decisión";
-            document.getElementById('decision-text').textContent = "Como líder comunitario en el Amazonas, debes decidir entre la deforestación y la conservación.";
+            document.getElementById('decision-title').textContent = "Third Decision";
+            document.getElementById('decision-text').textContent = "As a student, you must decide whether to implement wildfire prevention plans.";
+            document.getElementById('decision-btn-1').textContent = "Implement wildfire prevention plans";
+            document.getElementById('decision-btn-2').textContent = "Ignore and focus on other issues";
         }
     }
+
 
     // Actualizar puntos ambientales
     function updateEnvironmentalPoints() {
@@ -322,9 +329,9 @@
         var finalSummary = "";
 
         if (environmentalPoints >= 200) {
-            finalSummary = "¡Felicidades! Tomaste decisiones que ayudaron a mejorar el medio ambiente. Lograste conservar importantes áreas forestales y reducir emisiones en ciertos sectores. Aunque hubo desafíos, terminaste el juego con éxito.";
+            finalSummary = "Congratulations! You made decisions that helped improve the environment. You managed to conserve important forest areas and reduce emissions in certain sectors. Although there were challenges, you successfully completed the game";
         } else {
-            finalSummary = "Desafortunadamente, tus decisiones no fueron suficientes para proteger el medio ambiente. La deforestación y el aumento de desechos plásticos han causado daños importantes al planeta. Es necesario tomar acciones más agresivas para evitar el colapso ambiental.";
+            finalSummary = "Unfortunately, your decisions were not enough to protect the environment. Deforestation and the increase in plastic waste have caused significant damage to the planet. More aggressive actions are needed to prevent environmental collapse.";
         }
 
         document.getElementById('final-summary').textContent = finalSummary;
